@@ -1,3 +1,5 @@
+import de.uka.ilkd.key.nparser.ParsingFacade
+import org.antlr.v4.runtime.CharStreams
 import org.junit.jupiter.api.RepeatedTest
 import kotlin.test.assertEquals
 
@@ -19,6 +21,8 @@ class E2ETest {
         val actual = t.smt2key(smt).first()
 
         assertEquals(expected, actual)
+
+        ParsingFacade.parseFile(CharStreams.fromString(actual))
     }
 }
 

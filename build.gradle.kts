@@ -34,11 +34,12 @@ dependencies {
     implementation(kotlin("stdlib-jdk8"))
     //implementation(kotlin("serialization"))
 
-    implementation("org.key-project:key.core:${keyVersion}")
     implementation("org.slf4j:slf4j-api:2.0.17")
 
     testImplementation(kotlin("test"))
     testImplementation("com.google.truth:truth:1.4.4")
+    testImplementation("org.key-project:key.core:${keyVersion}")
+
 }
 
 tasks.withType<KotlinCompile> {

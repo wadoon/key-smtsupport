@@ -115,7 +115,7 @@ class Translator {
 
                 append("\t\t\\find( ${name.text}($argNames) )\n")
                 append("\t\t\\replacewith( ${asExpr(rhs)} )\n")
-                append("\t}\n")
+                append("\t};\n")
             }
         }
         append("}")
