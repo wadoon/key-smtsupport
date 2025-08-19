@@ -122,13 +122,13 @@ class Translator {
     }
 
     private fun StringBuilder.appendProblem(commands: List<SList>) {
-        val fmls = commands
+        val formulae = commands
             .filter { it.firstSymbol() == "assert" }
             .joinToString(",\n\t") {
                 val (_, expr) = it.seq
                 asExpr(expr)
             }
-        append("\n\n\\problem {\n\t$fmls\n\n\t==>\n}")
+        append("\n\n\\problem {\n\t$formulae\n\n\t==>\n}")
     }
 
     fun asExpr(x: SExpr): String =

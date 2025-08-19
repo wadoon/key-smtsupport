@@ -1,5 +1,6 @@
-import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.RepeatedTest
 import kotlin.test.assertEquals
+
 
 /**
  *
@@ -7,7 +8,7 @@ import kotlin.test.assertEquals
  * @version 1 (8/19/25)
  */
 class E2ETest {
-    @Test
+    @RepeatedTest(100)
     fun test_a() = test("a.smt2", "a.key")
 
     private fun test(smt: String, key: String) {

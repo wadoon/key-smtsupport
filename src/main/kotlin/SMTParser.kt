@@ -4,14 +4,14 @@
  * @version 1 (8/19/25)
  */
 class SMTLexer(val input: String, var startPosition: Int = 0) : Iterator<Token> {
-    val RE_LPAREN = "\\(".toRegex()
-    val RE_RPAREN = "\\)".toRegex()
-    val RE_SYMBOL = "[^\\s()]+".toRegex()
-    val RE_SYMBOL_COMPLEX = "#\\|.*?\\|".toRegex()
-    val RE_WHITESPACE = "\\s+".toRegex()
-    val RE_COMMENT = ";.*?\n".toRegex()
+    private val RE_LPAREN = "\\(".toRegex()
+    private val RE_RPAREN = "\\)".toRegex()
+    private val RE_SYMBOL = "[^\\s()]+".toRegex()
+    private val RE_SYMBOL_COMPLEX = "#\\|.*?\\|".toRegex()
+    private val RE_WHITESPACE = "\\s+".toRegex()
+    private val RE_COMMENT = ";.*?\n".toRegex()
 
-    val REGEX = listOf(
+    private val REGEX = listOf(
         RE_LPAREN to TokenType.LPAREN,
         RE_RPAREN to TokenType.RPAREN,
         RE_COMMENT to TokenType.COMMENT,
@@ -30,9 +30,7 @@ class SMTLexer(val input: String, var startPosition: Int = 0) : Iterator<Token> 
             val m = re.matchAt(input, startPosition)
             if (m != null) {
                 startPosition = 1 + m.range.last
-                println(m.groupValues)
-                println(tt)
-                return Token(m.range, tt, input)
+                return Token(m.range, tt, input.substring(m.range))
             }
         }
         error("No regex matches ${input[startPosition]} at $startPosition")
@@ -49,7 +47,6 @@ class SMTParser(input: String, startPosition: Int = 0) {
             .filter { !it.type.isHidden() }
             .toList()
 
-        println(tokens.map { it.text })
         val seq = arrayListOf<SExpr>()
         while (currentTokenPos < tokens.size) {
             readSymbol()?.let { seq.add(it) }
@@ -84,11 +81,10 @@ class SMTParser(input: String, startPosition: Int = 0) {
     }
 }
 
-data class Token(val range: IntRange, val type: TokenType, val input: String) {
-    val text by lazy { input.substring(range) }
+data class Token(val range: IntRange, val type: TokenType, val text:String) {
 }
 
-enum class TokenType { LPAREN, RPAREN, SYMBOL, NUMBER, WHITESPACE, EOF, COMMENT }
+enum class TokenType { LPAREN, RPAREN, SYMBOL, WHITESPACE, EOF, COMMENT }
 
 fun TokenType.isHidden(): Boolean = when (this) {
     TokenType.WHITESPACE, TokenType.COMMENT -> true
