@@ -2,7 +2,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "2.2.0"
+    kotlin("jvm") version "2.2.20"
     id("org.jetbrains.dokka") version "2.0.0"
     `java-library`
     `maven-publish`
@@ -37,7 +37,7 @@ dependencies {
     implementation("org.slf4j:slf4j-api:2.0.17")
 
     testImplementation(kotlin("test"))
-    testImplementation("com.google.truth:truth:1.4.4")
+    testImplementation("com.google.truth:truth:1.4.5")
     testImplementation("org.key-project:key.core:${keyVersion}")
 
 }
